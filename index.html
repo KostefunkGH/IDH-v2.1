@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<meta name="theme-color" content="#1a1410">
+	<title>Старвалкинг — лист персонажа</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<main class="tome" id="app">
+		<h1 class="title">Старвалкинг</h1>
+		<div class="subtitle">лист персонажа · свиток искателя</div>
+
+		<nav class="menu" id="mainMenu">
+			<button onclick="showCharacterSheet()">Характеристики</button>
+			<button onclick="showDiceRoller()">Кубики</button>
+			<button class="moss" onclick="showLevelUp()">Уровень</button>
+			<button class="blood" onclick="showDamage()">Урон</button>
+			<button onclick="showHeal()">Лечение</button>
+			<button onclick="showDescription()">Описание</button>
+			<button onclick="showLongRest()">Долгий отдых</button>
+			<button onclick="showMap()" id="map-tab-btn">Карта</button>
+			<button onclick="showHelp()">Справка</button>
+			<button class="blood wide" onclick="deleteCharacter()">Удалить персонажа</button>
+		</nav>
+
+		<section id="output" class="scroll">
+			<h2>Добро пожаловать</h2>
+			<p>Выберите действие в меню выше.</p>
+			<p class="tip">Сначала создайте персонажа через «Характеристики»</p>
+		</section>
+
+		<section id="map-tab-content" style="display:none">
+			<div class="scroll map-scroll">
+				<h2>Карта мира</h2>
+		
+				<div class="map-upload">
+					<label for="mapUpload" class="map-upload-label">Карта мира</label>
+					<input type="file" id="mapUpload" accept="image/*">
+					<button class="btn ghost" id="mapResetBtn" type="button">Сбросить карту</button>
+					<div id="mapUploadStatus" class="tip"></div>
+				</div>
+		
+				<div class="map-toolbar">
+					<button class="btn ghost" type="button" onclick="MapController.zoomIn()">＋</button>
+					<button class="btn ghost" type="button" onclick="MapController.zoomOut()">−</button>
+					<button class="btn ghost" type="button" onclick="MapController.reset()">Сброс</button>
+					<button class="btn ghost" type="button" id="map-mode-toggle" onclick="MarkerManager.toggleMode()">Добавить маркер</button>
+					<button class="btn ghost" type="button" onclick="MarkerManager.clearAll()">Очистить маркеры</button>
+				</div>
+		
+				<div class="map-viewport" id="mapViewport">
+					<div class="map-stage" id="mapStage">
+						<img id="mapImage" alt="Карта мира" draggable="false">
+						<div class="map-markers" id="mapMarkers"></div>
+					</div>
+				</div>
+		
+				<div id="mapMarkerForm" class="map-marker-form" style="display:none">
+					<div class="field">
+						<label>Подпись</label>
+						<input type="text" id="markerLabel" maxlength="40" placeholder="Например: Лагерь">
+					</div>
+					<div class="field">
+						<label>Цвет</label>
+						<select id="markerColor">
+							<option value="gold">Золотой</option>
+							<option value="blood">Красный</option>
+							<option value="moss">Зелёный</option>
+							<option value="ink">Светлый</option>
+						</select>
+					</div>
+					<div class="duo">
+						<button class="btn" type="button" onclick="MarkerManager.confirmAdd()">Добавить</button>
+						<button class="btn ghost" type="button" onclick="MarkerManager.cancelAdd()">Отмена</button>
+					</div>
+				</div>
+		
+				<p class="tip">Колесо мыши / pinch — масштаб. Перетаскивание — панорама. Маркеры сохраняются в браузере.</p>
+				<button class="btn ghost" type="button" onclick="showMainMenu()">← Назад</button>
+			</div>
+		</section>
+	</main>
+
+	<!-- Карта -->
+	<script src="js/map-loader.js"></script>
+	<script src="js/map.js"></script>
+
+	<!-- Состояние и утилиты -->
+	<script src="js/character-state.js"></script>
+	<script src="js/storage.js"></script>
+
+	<!-- Экраны -->
+	<script src="js/navigation.js"></script>
+	<script src="js/create-character.js"></script>
+	<script src="js/sheet.js"></script>
+	<script src="js/dice.js"></script>
+	<script src="js/level-up.js"></script>
+	<script src="js/damage.js"></script>
+	<script src="js/knockout.js"></script>
+	<script src="js/heal.js"></script>
+	<script src="js/long-rest.js"></script>
+	<script src="js/description.js"></script>
+	<script src="js/help.js"></script>
+	<script src="js/map-tab.js"></script>
+	<script src="js/delete-character.js"></script>
+
+	<!-- Запуск -->
+	<script src="js/init.js"></script>
+</body>
+</html>
